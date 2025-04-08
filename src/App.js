@@ -33,7 +33,7 @@ function App() {
         e.preventDefault();
 
         const todo = {
-            id: Math.random(),
+            id: String(Date.now()),
             title,
             time,
             done: false,
@@ -54,11 +54,18 @@ function App() {
     };
 
     const handleDelete = async (id) => {
-        await fetch(API + "/todos/" + id, {
-            method: "DELETE",
-        });
+        try {
+            await fetch(API + "/todos/" + id, {
+                method: "DELETE",
+            });
+            setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
+        }
+        catch (e) {
+            console.log('App não conseguiu remover item!')
+            alert('App não conseguiu remover item!')
+            console.error(e)            
+        }
 
-        setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
     };
 
     const handleEdit = async(todo) => {
