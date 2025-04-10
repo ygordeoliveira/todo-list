@@ -15,7 +15,7 @@ function App() {
             setLoading(true);
 
             try {
-                const res = await fetch(API + "/todos");
+                const res = await fetch("/api/todos");
                 const data = await res.json();
                 setTodos(data); 
             } catch (err) {
@@ -39,7 +39,7 @@ function App() {
             done: false,
         }
 
-        await fetch(API + "/todos", {
+        await fetch("/api/todos", {
             method: "POST",
             body: JSON.stringify(todo),
             headers: {
@@ -55,7 +55,7 @@ function App() {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(API + "/todos/" + id, {
+            await fetch("/api/todos/" + id, {
                 method: "DELETE",
             });
             setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
@@ -71,7 +71,7 @@ function App() {
     const handleEdit = async(todo) => {
         todo.done = !todo.done;
 
-        const data = await fetch(API + "/todos/" + todo.id, {
+        const data = await fetch("/api/todos/" + todo.id, {
             method: "PUT",
             body: JSON.stringify(todo),
             headers: {
