@@ -1,0 +1,13 @@
+{
+    "name": "todo-list-backend",
+    "version": "1.0.0",
+    "description": "Backend do TODO List com json-server",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "json-server --watch backend/db.json --port 5000"
+    },
+    "dependencies": {
+        "json-server": "^0.17.0"
+    }
+}
