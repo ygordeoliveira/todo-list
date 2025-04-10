@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from "react";
 import { BsTrash, BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs";
 
-const API = "http://localhost:5000";
+const API = "/api/todos";
 
 function App() {
     const [title, setTitle] = useState("");
@@ -15,7 +15,7 @@ function App() {
             setLoading(true);
 
             try {
-                const res = await fetch("/api/todos");
+                const res = await fetch(API);
                 const data = await res.json();
                 setTodos(data); 
             } catch (err) {
@@ -39,7 +39,7 @@ function App() {
             done: false,
         }
 
-        await fetch("/api/todos", {
+        await fetch(API, {
             method: "POST",
             body: JSON.stringify(todo),
             headers: {
@@ -55,7 +55,7 @@ function App() {
 
     const handleDelete = async (id) => {
         try {
-            await fetch("/api/todos/" + id, {
+            await fetch(API + id, {
                 method: "DELETE",
             });
             setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
@@ -71,7 +71,7 @@ function App() {
     const handleEdit = async(todo) => {
         todo.done = !todo.done;
 
-        const data = await fetch("/api/todos/" + todo.id, {
+        const data = await fetch(API + todo.id, {
             method: "PUT",
             body: JSON.stringify(todo),
             headers: {
