@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from "react";
 import { BsTrash, BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs";
 
-const API = "/api/todos";
+const API = "https://todo-list-backend-production-bcf1.up.railway.app/todos";
 
 function App() {
     const [title, setTitle] = useState("");
@@ -17,17 +17,23 @@ function App() {
             try {
                 const res = await fetch(API);
                 const data = await res.json();
-                setTodos(data); 
+            
+                if (Array.isArray(data)) {
+                    setTodos(data); 
+                } else {
+                    console.error("Resposta inesperada da API:", data);
+                    setTodos([]); 
+                }
             } catch (err) {
                 console.error("Erro ao carregar os dados:", err);
-                setTodos([]);  
+                setTodos([]); 
             }
 
-            setLoading(false);
+            setLoading(false)
         };
 
         loadData();
-    }, [])
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,24 +60,16 @@ function App() {
     };
 
     const handleDelete = async (id) => {
-        try {
-            await fetch(API + id, {
+            await fetch(`${API}/${id}`, {
                 method: "DELETE",
             });
             setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
-        }
-        catch (e) {
-            console.log('App não conseguiu remover item!')
-            alert('App não conseguiu remover item!')
-            console.error(e)            
-        }
-
     };
 
     const handleEdit = async(todo) => {
         todo.done = !todo.done;
 
-        const data = await fetch(API + todo.id, {
+        const data = await fetch(`${API}/${todo.id}`, {
             method: "PUT",
             body: JSON.stringify(todo),
             headers: {
@@ -142,4 +140,4 @@ function App() {
     );
 }
 
-export default App;
+export default App
