@@ -1,6 +1,6 @@
 .App {
     width: 40%;
-    margin: 2em auto;
+    margin: 6em auto;
     background-color: #394049;
     border-radius: 5px;
     color: #fff;
@@ -102,4 +102,22 @@ input[type="submit"] {
 
 .todo svg:hover {
     color: rgb(240, 98, 146);
+}
+
+@media (max-width: 700px) and (min-width: 500px) {
+    .App {
+        width: 500px;
+    }
+}
+
+@media (max-width: 500px) and (min-width: 300px) {
+    .App {
+        width: 300px;
+    }
+}
+
+@media (max-width: 300px) and (min-width: 200px) {
+    .App {
+        width: 200px;
+    }
 }
