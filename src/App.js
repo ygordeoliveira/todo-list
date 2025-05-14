@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from "react";
 import { BsTrash, BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs";
 
-const API = "https://todo-list-backend-production-bcf1.up.railway.app/todos";
+const API = "https://todo-list-backend-mx6x.onrender.com/todos";
 
 function App() {
     const [user, setUser] = useState("");
